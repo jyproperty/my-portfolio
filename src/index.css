@@ -1,0 +1,54 @@
+/* 컬러 팔레트 디자인 시스템 CSS 변수 (huemint.com 기반) */
+:root {
+  /* Primary Colors */
+  --color-primary: #746250;        /* 웜 모카 브라운 - 메인 브랜드 컬러 */
+  --color-primary-light: #9c8879;  /* 로즈-베이지 그레이 - 밝은 브랜드 컬러 */
+  --color-primary-dark: #4e4a45;   /* 웜 다크 그레이 - 어두운 브랜드 컬러 */
+
+  /* Secondary Colors */
+  --color-secondary: #706766;      /* 쿨-뉴트럴 미드 그레이 */
+  --color-accent: #441b18;         /* 딥 버건디 - 강조 포인트 컬러 */
+
+  /* Background Colors */
+  --color-bg-primary: #141313;     /* 거의 검정 차콜 - 메인 배경 */
+  --color-bg-secondary: #2c2e2b;   /* 짙은 올리브 다크 그레이 - 보조 배경 */
+
+  /* Text Colors */
+  --color-text-primary: #ada8aa;   /* 쿨 라이트 그레이 - 주 텍스트 */
+  --color-text-secondary: #9c8879; /* 로즈-베이지 그레이 - 보조 텍스트 */
+  --color-text-muted: #706766;     /* 미드 그레이 - 흐린 텍스트 */
+
+  /* Interactive Colors */
+  --color-button-primary: #441b18;  /* 딥 버건디 - 주요 버튼 */
+  --color-button-hover: #746250;    /* 웜 모카 브라운 - 버튼 호버 */
+  --color-link: #9c8879;            /* 로즈-베이지 그레이 - 링크 */
+  --color-link-hover: #ada8aa;      /* 쿨 라이트 그레이 - 링크 호버 */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: var(--color-link);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}
+
+button {
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
