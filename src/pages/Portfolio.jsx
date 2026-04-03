@@ -1,28 +1,6 @@
-import { Box, Typography, Container, Card, CardContent, Chip, Divider } from '@mui/material'
-
-const projects = [
-  {
-    id: 1,
-    title: '프로젝트 1',
-    desc: '여기에 첫 번째 프로젝트 설명이 들어갑니다. 어떤 기술을 사용했는지, 어떤 문제를 해결했는지 작성하세요.',
-    tags: ['React', 'MUI'],
-    status: '완료',
-  },
-  {
-    id: 2,
-    title: '프로젝트 2',
-    desc: '여기에 두 번째 프로젝트 설명이 들어갑니다. 프로젝트의 주요 기능과 배운 점을 작성하세요.',
-    tags: ['React', 'Vite', 'CSS'],
-    status: '진행중',
-  },
-  {
-    id: 3,
-    title: '프로젝트 3',
-    desc: '여기에 세 번째 프로젝트 설명이 들어갑니다. 앞으로 추가될 작품들이 이 형태로 보여집니다.',
-    tags: ['JavaScript', 'HTML', 'CSS'],
-    status: '준비중',
-  },
-]
+import { Box, Typography, Container, Card, CardContent, Chip, Divider, IconButton } from '@mui/material'
+import GitHubIcon from '@mui/icons-material/GitHub'
+import { projects } from '../data/projects'
 
 const statusColor = {
   '완료': 'var(--color-primary)',
@@ -42,7 +20,7 @@ function Portfolio() {
         </Typography>
         <Divider sx={{ borderColor: 'var(--color-accent)', mb: 2, width: '60px', borderWidth: 2 }} />
         <Typography variant="body1" sx={{ color: 'var(--color-text-muted)', mb: 6 }}>
-          앞으로 제가 만든 작품들이 이 곳에 추가됩니다.
+          직접 만든 프로젝트들을 소개합니다.
         </Typography>
 
         <Box
@@ -61,9 +39,11 @@ function Portfolio() {
                 borderRadius: 2,
                 transition: 'border-color 0.2s ease',
                 '&:hover': { borderColor: 'var(--color-primary)' },
+                display: 'flex',
+                flexDirection: 'column',
               }}
             >
-              <CardContent sx={{ p: 3 }}>
+              <CardContent sx={{ p: 3, flex: 1, display: 'flex', flexDirection: 'column' }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
                   <Typography variant="h3" sx={{ color: 'var(--color-text-primary)' }}>
                     {project.title}
@@ -77,15 +57,16 @@ function Portfolio() {
                       px: 1,
                       py: 0.25,
                       borderRadius: 1,
+                      whiteSpace: 'nowrap',
                     }}
                   >
                     {project.status}
                   </Typography>
                 </Box>
-                <Typography variant="body2" sx={{ color: 'var(--color-text-secondary)', mb: 3, lineHeight: 1.7 }}>
+                <Typography variant="body2" sx={{ color: 'var(--color-text-secondary)', mb: 3, lineHeight: 1.7, flex: 1 }}>
                   {project.desc}
                 </Typography>
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
                   {project.tags.map((tag) => (
                     <Chip
                       key={tag}
@@ -98,6 +79,18 @@ function Portfolio() {
                       }}
                     />
                   ))}
+                </Box>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                  <IconButton
+                    component="a"
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size="small"
+                    sx={{ color: 'var(--color-text-muted)', '&:hover': { color: 'var(--color-text-primary)' } }}
+                  >
+                    <GitHubIcon fontSize="small" />
+                  </IconButton>
                 </Box>
               </CardContent>
             </Card>
