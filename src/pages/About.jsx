@@ -1,22 +1,7 @@
 import { useState } from 'react'
-import {
-  Box,
-  Typography,
-  Container,
-  Chip,
-  Divider,
-  Card,
-  CardContent,
-  Avatar,
-  Grid,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-} from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import PersonIcon from '@mui/icons-material/Person'
+import { ChevronDown, User } from 'lucide-react'
 
-const skills = ['React', 'JavaScript', 'MUI', 'TypeScript', 'Git', 'Vite', 'CSS', 'HTML']
+const skills = ['React', 'JavaScript', 'DaisyUI', 'TypeScript', 'Git', 'Vite', 'CSS', 'HTML']
 
 const initialAboutMeData = {
   basicInfo: {
@@ -50,215 +35,117 @@ const initialAboutMeData = {
 
 function About() {
   const [aboutMeData] = useState(initialAboutMeData)
-
   const { basicInfo, sections } = aboutMeData
 
   const handlePhotoChange = (e) => {
-    // 이미지 업로드 처리 (추후 구현)
     const file = e.target.files[0]
-    if (file) {
-      console.log('업로드된 파일:', file.name)
-    }
+    if (file) console.log('업로드된 파일:', file.name)
   }
 
   return (
-    <Box sx={{ bgcolor: 'var(--color-bg-primary)', minHeight: '80vh', py: 8 }}>
-      <Container maxWidth="md">
-        {/* 페이지 타이틀 */}
-        <Typography
-          variant="h1"
-          sx={{ color: 'var(--color-text-primary)', mb: 1, fontSize: { xs: '2rem', md: '2.5rem' } }}
-        >
-          About Me
-        </Typography>
-        <Divider sx={{ borderColor: 'var(--color-accent)', mb: 6, width: '60px', borderWidth: 2 }} />
+    <div className="min-h-[80vh] bg-base-100 py-20">
+      <div className="container mx-auto px-6 max-w-3xl">
+        <h1 className="text-4xl font-bold mb-1">About Me</h1>
+        <div className="divider divider-primary w-16 mt-0 mb-12"></div>
 
         {/* 기본 정보 카드 */}
-        <Card
-          sx={{
-            bgcolor: 'var(--color-bg-secondary)',
-            border: '1px solid var(--color-primary-dark)',
-            borderRadius: 2,
-            mb: 4,
-          }}
-        >
-          <CardContent sx={{ p: 4 }}>
-            <Typography variant="h3" sx={{ color: 'var(--color-primary)', mb: 3 }}>
-              기본 정보
-            </Typography>
-            <Grid container spacing={3} alignItems="center">
+        <div className="card bg-base-200 shadow mb-6">
+          <div className="card-body">
+            <h2 className="card-title text-primary mb-4">기본 정보</h2>
+            <div className="flex flex-col sm:flex-row gap-6 items-start">
               {/* 프로필 사진 */}
-              <Grid item xs={12} sm="auto">
-                <Box
-                  component="label"
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: 1,
-                    cursor: 'pointer',
-                  }}
-                >
-                  <Avatar
-                    src={basicInfo.photo || undefined}
-                    sx={{
-                      width: 100,
-                      height: 100,
-                      bgcolor: 'var(--color-primary-dark)',
-                      border: '2px dashed var(--color-primary)',
-                    }}
-                  >
-                    {!basicInfo.photo && <PersonIcon sx={{ fontSize: 48, color: 'var(--color-primary)' }} />}
-                  </Avatar>
-                  <Typography variant="body2" sx={{ color: 'var(--color-text-muted)', fontSize: '0.75rem' }}>
-                    사진 업로드
-                  </Typography>
-                  <input type="file" accept="image/*" hidden onChange={handlePhotoChange} />
-                </Box>
-              </Grid>
+              <label className="flex flex-col items-center gap-2 cursor-pointer flex-shrink-0">
+                <div className="avatar">
+                  <div className="w-24 h-24 rounded-full bg-base-300 border-2 border-dashed border-primary flex items-center justify-center overflow-hidden">
+                    {basicInfo.photo ? (
+                      <img src={basicInfo.photo} alt="프로필" className="object-cover w-full h-full" />
+                    ) : (
+                      <User size={40} className="text-primary" />
+                    )}
+                  </div>
+                </div>
+                <span className="text-xs text-base-content/40">사진 업로드</span>
+                <input type="file" accept="image/*" className="hidden" onChange={handlePhotoChange} />
+              </label>
 
               {/* 텍스트 정보 */}
-              <Grid item xs={12} sm>
-                <Grid container spacing={2}>
-                  {[
-                    { label: '이름', value: basicInfo.name },
-                    { label: '학력', value: basicInfo.education },
-                    { label: '전공', value: basicInfo.major },
-                    { label: '경력', value: basicInfo.experience },
-                  ].map(({ label, value }) => (
-                    <Grid item xs={12} sm={6} key={label}>
-                      <Box sx={{ display: 'flex', gap: 1 }}>
-                        <Typography
-                          variant="body2"
-                          sx={{ color: 'var(--color-accent)', minWidth: '40px', fontWeight: 600 }}
-                        >
-                          {label}
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: 'var(--color-text-secondary)' }}>
-                          {value}
-                        </Typography>
-                      </Box>
-                    </Grid>
-                  ))}
-                </Grid>
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 flex-1">
+                {[
+                  { label: '이름', value: basicInfo.name },
+                  { label: '학력', value: basicInfo.education },
+                  { label: '전공', value: basicInfo.major },
+                  { label: '경력', value: basicInfo.experience },
+                ].map(({ label, value }) => (
+                  <div key={label} className="flex gap-2">
+                    <span className="text-primary font-semibold text-sm min-w-[40px]">{label}</span>
+                    <span className="text-base-content/70 text-sm">{value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
 
-        {/* 콘텐츠 섹션 (아코디언) */}
-        <Box sx={{ mb: 4 }}>
-          <Typography variant="h3" sx={{ color: 'var(--color-primary)', mb: 2 }}>
-            소개
-          </Typography>
-          {sections.map((section) => (
-            <Accordion
-              key={section.id}
-              sx={{
-                bgcolor: 'var(--color-bg-secondary)',
-                border: '1px solid var(--color-primary-dark)',
-                borderRadius: '8px !important',
-                mb: 1,
-                '&:before': { display: 'none' },
-              }}
-            >
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon sx={{ color: 'var(--color-primary)' }} />}
-                sx={{ px: 3 }}
-              >
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                  <Typography variant="body1" sx={{ color: 'var(--color-text-primary)', fontWeight: 500 }}>
-                    {section.title}
-                  </Typography>
+        {/* 소개 섹션 (아코디언) */}
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold text-primary mb-3">소개</h2>
+          <div className="flex flex-col gap-2">
+            {sections.map((section) => (
+              <div key={section.id} className="collapse collapse-arrow bg-base-200 border border-base-300">
+                <input type="checkbox" />
+                <div className="collapse-title font-medium flex items-center gap-2">
+                  {section.title}
                   {section.showInHome && (
-                    <Chip
-                      label="홈 노출"
-                      size="small"
-                      sx={{
-                        bgcolor: 'var(--color-primary-dark)',
-                        color: 'var(--color-accent)',
-                        border: '1px solid var(--color-accent)',
-                        fontSize: '0.65rem',
-                        height: '20px',
-                      }}
-                    />
+                    <span className="badge badge-outline badge-primary badge-xs">홈 노출</span>
                   )}
-                </Box>
-              </AccordionSummary>
-              <AccordionDetails sx={{ px: 3, pb: 3 }}>
-                <Typography variant="body1" sx={{ color: 'var(--color-text-secondary)', lineHeight: 1.8 }}>
-                  {section.content}
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-          ))}
-        </Box>
+                </div>
+                <div className="collapse-content">
+                  <p className="text-base-content/70 leading-relaxed pt-1">{section.content}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
         {/* 기술 스택 */}
-        <Box
-          sx={{
-            bgcolor: 'var(--color-bg-secondary)',
-            border: '1px solid var(--color-primary-dark)',
-            borderRadius: 2,
-            p: 4,
-            mb: 4,
-          }}
-        >
-          <Typography variant="h3" sx={{ color: 'var(--color-primary)', mb: 3 }}>
-            기술 스택
-          </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5 }}>
-            {skills.map((skill) => (
-              <Chip
-                key={skill}
-                label={skill}
-                sx={{
-                  bgcolor: 'var(--color-primary-dark)',
-                  color: 'var(--color-text-primary)',
-                  border: '1px solid var(--color-primary)',
-                  '&:hover': { bgcolor: 'var(--color-primary)', cursor: 'default' },
-                }}
-              />
-            ))}
-          </Box>
-        </Box>
+        <div className="card bg-base-200 shadow mb-6">
+          <div className="card-body">
+            <h2 className="card-title text-primary mb-2">기술 스택</h2>
+            <div className="flex flex-wrap gap-2">
+              {skills.map((skill) => (
+                <span key={skill} className="badge badge-outline badge-primary">{skill}</span>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* 경력 / 학력 */}
-        <Box
-          sx={{
-            bgcolor: 'var(--color-bg-secondary)',
-            border: '1px solid var(--color-primary-dark)',
-            borderRadius: 2,
-            p: 4,
-          }}
-        >
-          <Typography variant="h3" sx={{ color: 'var(--color-primary)', mb: 3 }}>
-            경력 / 학력
-          </Typography>
-          {[
-            { period: '2024 - 현재', title: '프론트엔드 개발 학습', desc: 'React, MUI 기반 프로젝트 개발' },
-            { period: '2023', title: '웹 개발 입문', desc: 'HTML, CSS, JavaScript 기초 학습' },
-          ].map((item, index) => (
-            <Box key={index} sx={{ mb: index < 1 ? 3 : 0 }}>
-              <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
-                <Typography variant="body2" sx={{ color: 'var(--color-accent)', minWidth: '80px', pt: 0.2 }}>
-                  {item.period}
-                </Typography>
-                <Box>
-                  <Typography variant="body1" sx={{ color: 'var(--color-text-primary)', fontWeight: 500 }}>
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'var(--color-text-muted)' }}>
-                    {item.desc}
-                  </Typography>
-                </Box>
-              </Box>
-              {index < 1 && <Divider sx={{ borderColor: 'var(--color-primary-dark)', my: 2 }} />}
-            </Box>
-          ))}
-        </Box>
-      </Container>
-    </Box>
+        <div className="card bg-base-200 shadow">
+          <div className="card-body">
+            <h2 className="card-title text-primary mb-4">경력 / 학력</h2>
+            <ul className="timeline timeline-vertical">
+              {[
+                { period: '2024 - 현재', title: '프론트엔드 개발 학습', desc: 'React, DaisyUI 기반 프로젝트 개발' },
+                { period: '2023', title: '웹 개발 입문', desc: 'HTML, CSS, JavaScript 기초 학습' },
+              ].map((item, i) => (
+                <li key={i}>
+                  {i > 0 && <hr className="bg-primary/30" />}
+                  <div className="timeline-start text-xs text-primary font-semibold">{item.period}</div>
+                  <div className="timeline-middle">
+                    <div className="w-3 h-3 rounded-full bg-primary"></div>
+                  </div>
+                  <div className="timeline-end timeline-box bg-base-100 border-base-300">
+                    <p className="font-semibold text-sm">{item.title}</p>
+                    <p className="text-xs text-base-content/50 mt-0.5">{item.desc}</p>
+                  </div>
+                  {i < 1 && <hr className="bg-primary/30" />}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
 

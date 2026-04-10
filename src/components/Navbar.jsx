@@ -1,4 +1,3 @@
-import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material'
 import { Link, useLocation } from 'react-router-dom'
 
 const navItems = [
@@ -12,42 +11,43 @@ function Navbar() {
   const location = useLocation()
 
   return (
-    <AppBar position="sticky" elevation={0}>
-      <Toolbar sx={{ maxWidth: 'lg', width: '100%', mx: 'auto', px: { xs: 2, md: 3 } }}>
-        <Typography
-          variant="h6"
-          component={Link}
-          to="/"
-          sx={{
-            fontWeight: 700,
-            color: 'var(--color-text-primary)',
-            textDecoration: 'none',
-            letterSpacing: 1,
-            flexGrow: 1,
-          }}
-        >
+    <div className="navbar bg-base-200 shadow-sm sticky top-0 z-50">
+      <div className="navbar-start">
+        <div className="dropdown">
+          <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+            </svg>
+          </div>
+          <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-200 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+            {navItems.map((item) => (
+              <li key={item.path}>
+                <Link to={item.path} className={location.pathname === item.path ? 'active' : ''}>
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <Link to="/" className="btn btn-ghost text-xl font-bold tracking-widest">
           MY PORTFOLIO
-        </Typography>
-        <Box sx={{ display: 'flex', gap: 1 }}>
+        </Link>
+      </div>
+      <div className="navbar-end hidden lg:flex">
+        <ul className="menu menu-horizontal px-1">
           {navItems.map((item) => (
-            <Button
-              key={item.path}
-              component={Link}
-              to={item.path}
-              sx={{
-                color: location.pathname === item.path
-                  ? 'var(--color-accent)'
-                  : 'var(--color-text-secondary)',
-                fontWeight: location.pathname === item.path ? 600 : 400,
-                '&:hover': { color: 'var(--color-text-primary)' },
-              }}
-            >
-              {item.label}
-            </Button>
+            <li key={item.path}>
+              <Link
+                to={item.path}
+                className={location.pathname === item.path ? 'active font-semibold' : ''}
+              >
+                {item.label}
+              </Link>
+            </li>
           ))}
-        </Box>
-      </Toolbar>
-    </AppBar>
+        </ul>
+      </div>
+    </div>
   )
 }
 

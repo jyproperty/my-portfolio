@@ -1,21 +1,10 @@
-import { Box, Typography, Divider } from '@mui/material'
-
 function Footer() {
   return (
-    <Box
-      component="footer"
-      sx={{
-        bgcolor: 'background.paper',
-        borderTop: '1px solid var(--color-primary-dark)',
-        py: 3,
-        textAlign: 'center',
-      }}
-    >
-      <Divider sx={{ borderColor: 'var(--color-primary-dark)', mb: 2 }} />
-      <Typography variant="body2" sx={{ color: 'var(--color-text-muted)' }}>
+    <footer className="footer footer-center bg-base-200 text-base-content border-t border-base-300 p-6">
+      <p className="text-base-content/50 text-sm">
         © 2026 My Portfolio. All rights reserved.
-      </Typography>
-    </Box>
+      </p>
+    </footer>
   )
 }
 
